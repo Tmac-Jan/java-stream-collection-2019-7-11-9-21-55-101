@@ -22,11 +22,8 @@ public class CollectionOperator {
   public List<Integer> getEvenListByIntervals(int left, int right) {
 //        int min = Math.min(left,right);
 //        int max = Math.max(left,right);
-    return (left>right)?IntStream.rangeClosed(right,left).boxed()
-        .sorted(Comparator.reverseOrder())
-        .filter(e->e%2==0).collect(Collectors.toList()):
-        IntStream.rangeClosed(left,right).boxed()
-            .filter(e->e%2==0).collect(Collectors.toList());
+    return getListByInterval(left,right).stream()
+        .filter(e->e%2==0).collect(Collectors.toList());
 //    return getListByInterval(left, right).stream().
 //        filter(e -> e % 2 == 0).sorted().collect(Collectors.toList());
   }
