@@ -11,18 +11,24 @@ import java.util.List;
 public class CollectionOperator {
 
   public List<Integer> getListByInterval(int left, int right) {
-    int min = Math.min(left, right);
-    int max = Math.max(left, right);
-    return IntStream.rangeClosed(left, right).boxed()
-        .sorted(right<left?Comparator.reverseOrder()
-            :Comparator.naturalOrder()).collect(Collectors.toList());
+    int min = Math.min(left,right);
+    int max = Math.max(left,right);
+
+    return IntStream.rangeClosed(min, max).boxed()
+        .sorted(left>right? Comparator.reverseOrder():
+            Comparator.naturalOrder()).collect(Collectors.toList());
   }
 
   public List<Integer> getEvenListByIntervals(int left, int right) {
 //        int min = Math.min(left,right);
 //        int max = Math.max(left,right);
-    return getListByInterval(left, right).stream().
-        filter(e -> e % 2 == 0).sorted().collect(Collectors.toList());
+    return (left>right)?IntStream.rangeClosed(right,left).boxed()
+        .sorted(Comparator.reverseOrder())
+        .filter(e->e%2==0).collect(Collectors.toList()):
+        IntStream.rangeClosed(left,right).boxed()
+            .filter(e->e%2==0).collect(Collectors.toList());
+//    return getListByInterval(left, right).stream().
+//        filter(e -> e % 2 == 0).sorted().collect(Collectors.toList());
   }
 
   public List<Integer> popEvenElments(int[] array) {
